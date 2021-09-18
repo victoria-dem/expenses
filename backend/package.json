@@ -1,0 +1,29 @@
+{
+  "name": "dynamicly",
+  "version": "1.0.0",
+  "description": "backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint node_modules/.bin/eslint --ext=.js ./",
+    "lintfix": "eslint node_modules/.bin/eslint --ext=.js ./ --fix",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "author": "V.Dementyeva",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2"
+  },
+  "dependencies": {
+    "celebrate": "^15.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-winston": "^4.2.0",
+    "mongoose": "^6.0.6",
+    "nodemon": "^2.0.12",
+    "winston": "^3.3.3"
+  }
+}
