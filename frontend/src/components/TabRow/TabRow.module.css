@@ -1,0 +1,28 @@
+.row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-bottom: 1px solid grey;
+  padding: 10px 0;
+}
+.row_cell {
+  align-self: center;
+}
+
+.buttons_container {
+  justify-self: end;
+}
+
+.button_delete {
+  height: 30px;
+  width: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('../../images/delete.svg');
+  background-color: transparent;
+  border: none;
+}
+
+.button_edit {
+  composes: button_delete;
+  background-image: url('../../images/edit_button.svg');
+}

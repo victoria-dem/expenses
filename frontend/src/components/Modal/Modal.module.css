@@ -1,6 +1,6 @@
 .modal {
   position: fixed;
-  width: 720px;
+  width: 520px;
   height: auto;
   margin: auto;
   top: 50%;
@@ -11,6 +11,6 @@
   border: 1px solid rgba(76, 76, 255, 0.2);
   box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04),
     0 4px 8px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
-  border-radius: 40px;
+  border-radius: 15px;
   box-sizing: border-box;
 }

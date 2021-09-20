@@ -3,6 +3,9 @@ import axios from 'axios';
 export const GET_EXPENSES_REQUEST = 'GET_EXPENSES_REQUEST';
 export const GET_EXPENSES_SUCCESS = 'GET_EXPENSES_SUCCESS';
 export const GET_EXPENSES_FAILED = 'GET_EXPENSES_FAILED';
+export const ADD_EXPENSES_REQUEST = 'ADD_EXPENSES_REQUEST';
+export const ADD_EXPENSES_SUCCESS = 'ADD_EXPENSES_SUCCESS';
+export const ADD_EXPENSES_FAILED = 'ADD_EXPENSES_FAILED';
 export const RESET = 'RESET';
 
 export function getExpenses() {
@@ -12,7 +15,6 @@ export function getExpenses() {
     });
     axios.get(`http://localhost:3000/expenses`).then((res) => {
       if (res) {
-        console.log(res);
         dispatch({
           type: GET_EXPENSES_SUCCESS,
           expenses: res.data.expenses,
@@ -25,33 +27,24 @@ export function getExpenses() {
     });
   };
 }
-//
-// export function getBooksInfo(isbn) {
-//   return function (dispatch) {
-//     dispatch({
-//       type: GET_ITEMS_REQUEST,
-//     });
-//     Promise.all(
-//       isbn.map((item) => axios.get(`https://openlibrary.org/isbn/${item}.json`))
-//     ).then((res) => {
-//       if (res) {
-//         const booksInfo = [];
-//         isbn.forEach((item, i) => {
-//           booksInfo.push({
-//             date: res[i].data.publish_date,
-//             isbn: item,
-//             title: res[i].data.title,
-//           });
-//         });
-//         dispatch({
-//           type: GET_ITEMS_SUCCESS,
-//           allBooksInfo: booksInfo,
-//         });
-//       } else {
-//         dispatch({
-//           type: GET_ITEMS_FAILED,
-//         });
-//       }
-//     });
-//   };
-// }
+
+export function addExpense(expense) {
+  return function (dispatch) {
+    dispatch({
+      type: ADD_EXPENSES_REQUEST,
+    });
+    axios.post(`http://localhost:3000/expenses`, expense).then((res) => {
+      if (res && res.statusText === 'OK') {
+        console.log('res', res);
+        dispatch({
+          type: ADD_EXPENSES_SUCCESS,
+          expense: res.data.data,
+        });
+      } else {
+        dispatch({
+          type: ADD_EXPENSES_FAILED,
+        });
+      }
+    });
+  };
+}

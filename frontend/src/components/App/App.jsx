@@ -5,7 +5,7 @@ function App() {
   return (
     <div className={styles.app}>
       <header className={styles.header}>
-        <p>Expense tracker</p>
+        <h1>Expense tracker</h1>
       </header>
       <Expenses />
     </div>

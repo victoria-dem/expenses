@@ -1,0 +1,29 @@
+.table_header {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-bottom: 2px solid grey;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-bottom: 20px;
+}
+.summary {
+  align-self: end;
+  margin: 0 0 10px 0;
+}
+
+.add_button {
+  max-width: 200px;
+  padding: 0 20px;
+  cursor: pointer;
+  grid-column-start: 2;
+  grid-row: 1;
+  justify-self: end;
+}

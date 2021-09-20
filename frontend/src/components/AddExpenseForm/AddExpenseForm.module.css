@@ -1,6 +1,23 @@
 .form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.label {
+  display: inline-block;
+  width: 80%;
+  margin: 0 auto;
+  padding-bottom: 10px;
+}
+
+.input {
+  float: right;
+  padding: 5px;
+}
+
+.add_button {
+  margin: 20px auto;
+  padding: 5px 15px;
 }

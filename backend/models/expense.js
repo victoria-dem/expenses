@@ -12,11 +12,6 @@ const expenseSchema = new mongoose.Schema({
     min: 0,
     required: true,
   },
-  taxes: {
-    type: Number,
-    min: 0,
-    required: true,
-  },
   date: {
     type: Date,
     default: Date.now,

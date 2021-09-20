@@ -7,7 +7,7 @@ const modalRoot = document.getElementById('react-modals');
 
 function Modal({ onClose, header, children }) {
   useEffect(() => {
-    const close = (e: KeyboardEvent) => {
+    const close = (e) => {
       if (e.key === 'Escape') {
         onClose(e);
       }
@@ -19,8 +19,7 @@ function Modal({ onClose, header, children }) {
   return ReactDOM.createPortal(
     <>
       <div className={styles.modal}>
-        {/*<ModalHeader header={header} onClose={onClose} />*/}
-        <ModalHeader />
+        <ModalHeader onClose={onClose} />
         {children}
       </div>
       <ModalOverlay onClose={onClose} />
