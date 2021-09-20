@@ -5,6 +5,12 @@ import {
   ADD_EXPENSES_REQUEST,
   ADD_EXPENSES_SUCCESS,
   ADD_EXPENSES_FAILED,
+  EDIT_EXPENSE_REQUEST,
+  EDIT_EXPENSE_SUCCESS,
+  EDIT_EXPENSE_FAILED,
+  DELETE_EXPENSE_REQUEST,
+  DELETE_EXPENSE_SUCCESS,
+  DELETE_EXPENSE_FAILED,
   RESET,
 } from '../actions/expenses';
 
@@ -14,6 +20,10 @@ const initialState = {
   expensesFailed: false,
   addExpenseRequest: false,
   addExpenseFailed: false,
+  editExpenseRequest: false,
+  editExpenseFailed: false,
+  deleteExpenseRequest: false,
+  deleteExpenseFailed: false,
 };
 
 export const expenses = (state = initialState, action) => {
@@ -55,6 +65,49 @@ export const expenses = (state = initialState, action) => {
     }
     case ADD_EXPENSES_FAILED: {
       return { ...state, addExpensesFailed: true, addExpensesRequest: false };
+    }
+
+    case EDIT_EXPENSE_REQUEST: {
+      return {
+        ...state,
+        editExpenseRequest: true,
+      };
+    }
+    case EDIT_EXPENSE_SUCCESS: {
+      return {
+        ...state,
+        expenses: state.expenses.map((expense) => {
+          if (expense._id !== action.expense._id) {
+            return expense;
+          }
+          return { ...expense, ...action.expense };
+        }),
+      };
+    }
+    case EDIT_EXPENSE_FAILED: {
+      return { ...state, editExpenseFailed: true, editExpenseRequest: false };
+    }
+
+    case DELETE_EXPENSE_REQUEST: {
+      return {
+        ...state,
+        deleteExpenseRequest: true,
+      };
+    }
+    case DELETE_EXPENSE_SUCCESS: {
+      return {
+        ...state,
+        expenses: state.expenses.filter(
+          (expense) => expense._id !== action.expense._id
+        ),
+      };
+    }
+    case DELETE_EXPENSE_FAILED: {
+      return {
+        ...state,
+        deleteExpenseFailed: true,
+        deleteExpenseRequest: false,
+      };
     }
     default: {
       return state;

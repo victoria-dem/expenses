@@ -25,7 +25,7 @@ app.use(errorLogger);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-  setInterval(() => {
-    console.log('server');
-  }, 5000);
+  // setInterval(() => {
+  //   console.log('server');
+  // }, 5000);
 });

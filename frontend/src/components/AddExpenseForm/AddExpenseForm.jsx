@@ -3,7 +3,11 @@ import styles from './AddExpenseForm.module.css';
 
 function AddExpenseForm({ inputValues, onSubmit, onChange, type }) {
   return (
-    <form onSubmit={onSubmit} className={styles.form} name='add-expenses'>
+    <form
+      onSubmit={(event) => onSubmit(event, type)}
+      className={styles.form}
+      name='add-expenses'
+    >
       <label className={styles.label}>
         Description*
         <input

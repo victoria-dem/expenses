@@ -33,7 +33,7 @@ const deleteExpense = (req, res, next) => {
   return ExpenseInfo.findById(expenseId)
     .then((expense) => {
       if (!expense) {
-        throw new NotFoundError('There is no price with this ID.');
+        throw new NotFoundError('There is no expense with this ID.');
       }
       return ExpenseInfo.findByIdAndRemove(expense._id).then((delExpense) => {
         res.send({ data: delExpense });

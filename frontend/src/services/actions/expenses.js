@@ -6,6 +6,12 @@ export const GET_EXPENSES_FAILED = 'GET_EXPENSES_FAILED';
 export const ADD_EXPENSES_REQUEST = 'ADD_EXPENSES_REQUEST';
 export const ADD_EXPENSES_SUCCESS = 'ADD_EXPENSES_SUCCESS';
 export const ADD_EXPENSES_FAILED = 'ADD_EXPENSES_FAILED';
+export const EDIT_EXPENSE_REQUEST = 'EDIT_EXPENSE_REQUEST';
+export const EDIT_EXPENSE_SUCCESS = 'EDIT_EXPENSE_SUCCESS';
+export const EDIT_EXPENSE_FAILED = 'EDIT_EXPENSE_FAILED';
+export const DELETE_EXPENSE_REQUEST = 'DELETE_EXPENSE_REQUEST';
+export const DELETE_EXPENSE_SUCCESS = 'DELETE_EXPENSE_SUCCESS';
+export const DELETE_EXPENSE_FAILED = 'DELETE_EXPENSE_FAILED';
 export const RESET = 'RESET';
 
 export function getExpenses() {
@@ -35,7 +41,6 @@ export function addExpense(expense) {
     });
     axios.post(`http://localhost:3000/expenses`, expense).then((res) => {
       if (res && res.statusText === 'OK') {
-        console.log('res', res);
         dispatch({
           type: ADD_EXPENSES_SUCCESS,
           expense: res.data.data,
@@ -43,6 +48,48 @@ export function addExpense(expense) {
       } else {
         dispatch({
           type: ADD_EXPENSES_FAILED,
+        });
+      }
+    });
+  };
+}
+
+export function editExpense(expense, expenseId) {
+  return function (dispatch) {
+    dispatch({
+      type: EDIT_EXPENSE_REQUEST,
+    });
+    axios
+      .put(`http://localhost:3000/expenses/${expenseId}`, expense)
+      .then((res) => {
+        if (res && res.statusText === 'OK') {
+          dispatch({
+            type: EDIT_EXPENSE_SUCCESS,
+            expense: res.data.data,
+          });
+        } else {
+          dispatch({
+            type: EDIT_EXPENSE_FAILED,
+          });
+        }
+      });
+  };
+}
+
+export function deleteExpense(expenseId) {
+  return function (dispatch) {
+    dispatch({
+      type: DELETE_EXPENSE_REQUEST,
+    });
+    axios.delete(`http://localhost:3000/expenses/${expenseId}`).then((res) => {
+      if (res && res.statusText === 'OK') {
+        dispatch({
+          type: DELETE_EXPENSE_SUCCESS,
+          expense: res.data.data,
+        });
+      } else {
+        dispatch({
+          type: DELETE_EXPENSE_FAILED,
         });
       }
     });

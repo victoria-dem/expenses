@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addExpense, getExpenses } from '../../services/actions/expenses';
+import {
+  addExpense,
+  editExpense,
+  getExpenses,
+  deleteExpense,
+} from '../../services/actions/expenses';
 import Modal from '../Modal/Modal';
 import AddExpenseForm from '../AddExpenseForm/AddExpenseForm';
 import TabRow from '../TabRow/TabRow';
@@ -14,7 +19,7 @@ function Expenses(props) {
     amount: 0,
   });
   const [formType, setFormType] = useState('');
-  const [isEdit, setIsEdit] = useState(false);
+  const [itemEdit, setItemEdit] = useState(null);
 
   const dispatch = useDispatch();
   const { expenses } = useSelector((store) => store);
@@ -34,19 +39,33 @@ function Expenses(props) {
     setFormType('add');
   };
 
-  const handleEditButtonClick = () => {
+  const handleEditButtonClick = (e, expense) => {
     setIsModal(true);
     setFormType('edit');
+    setInputValues({
+      description: expense.description,
+      amount: expense.amount,
+    });
+    setItemEdit(expense._id);
   };
-  const handleDeleteClick = () => {};
 
-  const handleClose = () => {
+  const handleSubmit = (event, type) => {
+    event.preventDefault();
+    if (type === 'add') {
+      dispatch(addExpense(inputValues));
+    } else {
+      dispatch(editExpense(inputValues, itemEdit));
+      setItemEdit(null);
+    }
+    setInputValues({ description: '', amount: 0 });
     setIsModal(false);
   };
 
-  const handleAddSubmit = (e) => {
-    e.preventDefault();
-    dispatch(addExpense(inputValues));
+  const handleDeleteClick = (e, expenseId) => {
+    dispatch(deleteExpense(expenseId));
+  };
+
+  const handleClose = () => {
     setInputValues({ description: '', amount: 0 });
     setIsModal(false);
   };
@@ -59,9 +78,9 @@ function Expenses(props) {
   };
 
   const modal = (
-    <Modal header={'Add Expense'} onClose={handleClose}>
+    <Modal type={formType} onClose={handleClose}>
       <AddExpenseForm
-        onSubmit={handleAddSubmit}
+        onSubmit={handleSubmit}
         inputValues={inputValues}
         onChange={handleChange}
         type={formType}
@@ -84,24 +103,26 @@ function Expenses(props) {
         </button>
       </div>
       {isModal && modal}
-      <section>
-        <div className={styles.table_header}>
-          <p>Description</p>
-          <p>Amount</p>
-          <p>Taxes(15%)</p>
-          <p>Date</p>
-        </div>
-        <ul className={styles.list}>
-          {expenses.map((item) => (
-            <TabRow
-              key={item._id}
-              expense={item}
-              onDelete={handleDeleteClick}
-              onEdit={handleEditButtonClick}
-            />
-          ))}
-        </ul>
-      </section>
+      {expenses && expenses.length > 0 && (
+        <section>
+          <div className={styles.table_header}>
+            <p>Description</p>
+            <p>Amount</p>
+            <p>Taxes(15%)</p>
+            <p>Date</p>
+          </div>
+          <ul className={styles.list}>
+            {expenses.map((item) => (
+              <TabRow
+                key={item._id}
+                expense={item}
+                onDelete={handleDeleteClick}
+                onEdit={handleEditButtonClick}
+              />
+            ))}
+          </ul>
+        </section>
+      )}
     </main>
   );
 }
