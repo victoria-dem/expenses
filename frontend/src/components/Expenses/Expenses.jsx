@@ -7,7 +7,7 @@ import {
   deleteExpense,
 } from '../../services/actions/expenses';
 import Modal from '../Modal/Modal';
-import AddExpenseForm from '../AddExpenseForm/AddExpenseForm';
+import ExpenseForm from '../ExpenseForm/ExpenseForm';
 import TabRow from '../TabRow/TabRow';
 import { TAX } from '../../utils/constant';
 import styles from './Expenses.module.css';
@@ -79,7 +79,7 @@ function Expenses(props) {
 
   const modal = (
     <Modal type={formType} onClose={handleClose}>
-      <AddExpenseForm
+      <ExpenseForm
         onSubmit={handleSubmit}
         inputValues={inputValues}
         onChange={handleChange}

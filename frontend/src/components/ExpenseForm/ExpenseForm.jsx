@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './AddExpenseForm.module.css';
+import styles from './ExpenseForm.module.css';
 
-function AddExpenseForm({ inputValues, onSubmit, onChange, type }) {
+function ExpenseForm({ inputValues, onSubmit, onChange, type }) {
   return (
     <form
       onSubmit={(event) => onSubmit(event, type)}
@@ -47,4 +47,4 @@ function AddExpenseForm({ inputValues, onSubmit, onChange, type }) {
   );
 }
 
-export default AddExpenseForm;
+export default ExpenseForm;
