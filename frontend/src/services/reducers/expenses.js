@@ -11,11 +11,15 @@ import {
   DELETE_EXPENSE_REQUEST,
   DELETE_EXPENSE_SUCCESS,
   DELETE_EXPENSE_FAILED,
+  MAKE_REQUEST_SUCCESS,
+  MAKE_REQUEST_ERROR,
   RESET,
 } from '../actions/expenses';
 
 const initialState = {
   expenses: [],
+  items: [],
+  error: '',
   expensesRequest: false,
   expensesFailed: false,
   addExpenseRequest: false,
@@ -109,6 +113,17 @@ export const expenses = (state = initialState, action) => {
         deleteExpenseRequest: false,
       };
     }
+    case MAKE_REQUEST_SUCCESS:
+      return {
+        ...state,
+        items: [...state.items, action],
+        error: null,
+      };
+    case MAKE_REQUEST_ERROR:
+      return {
+        ...state,
+        error: 'There was an error in the request',
+      };
     default: {
       return state;
     }

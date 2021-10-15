@@ -20,7 +20,7 @@ server is running on port:3000
 
 ## Frontend
 
-Stack: React, Redux, redux-thunk, axios library for API
+React, Redux, redux-thunk, axios library for API
 
 In the fronted directory, you can run:
 

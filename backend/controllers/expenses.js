@@ -1,6 +1,6 @@
-const ExpenseInfo = require('../models/expense');
-const NotFoundError = require('../errors/not-found-err');
-const BadRequestError = require('../errors/bad-request-err');
+const ExpenseInfo = require("../models/expense");
+const NotFoundError = require("../errors/not-found-err");
+const BadRequestError = require("../errors/bad-request-err");
 
 const getExpenses = (req, res, next) => {
   ExpenseInfo.find({})
@@ -18,9 +18,9 @@ const createExpense = async (req, res, next) => {
       amount,
       taxes,
     }).catch((err) => {
-      if (err.name === 'ValidationError')
-        throw new BadRequestError('Validation error');
-      throw new BadRequestError('Request error');
+      if (err.name === "ValidationError")
+        throw new BadRequestError("Validation error");
+      throw new BadRequestError("Request error");
     });
     res.send({ data: expense });
   } catch (e) {
@@ -33,7 +33,7 @@ const deleteExpense = (req, res, next) => {
   return ExpenseInfo.findById(expenseId)
     .then((expense) => {
       if (!expense) {
-        throw new NotFoundError('There is no expense with this ID.');
+        throw new NotFoundError("There is no expense with this ID.");
       }
       return ExpenseInfo.findByIdAndRemove(expense._id).then((delExpense) => {
         res.send({ data: delExpense });
@@ -53,10 +53,10 @@ const updateExpense = async (req, res, next) => {
       { description, amount, taxes, date },
       { new: true }
     ).catch((err) => {
-      if (err.name === 'ValidationError') {
-        throw new BadRequestError('Validation error');
+      if (err.name === "ValidationError") {
+        throw new BadRequestError("Validation error");
       }
-      throw new BadRequestError('Request error');
+      throw new BadRequestError("Request error");
     });
     res.send({ data: expense });
   } catch (e) {
@@ -64,9 +64,19 @@ const updateExpense = async (req, res, next) => {
   }
 };
 
+const getExpenseById = (req, res, next) => {
+  const { expenseId } = req.params;
+
+  if (expenseId === "1111") {
+    res.send({ id: "1111", parent: null });
+  }
+  res.send({ id: expenseId, parent: (expenseId + 1).toString() });
+};
+
 module.exports = {
   getExpenses,
   createExpense,
   deleteExpense,
   updateExpense,
+  getExpenseById,
 };
